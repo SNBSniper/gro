@@ -26,7 +26,7 @@ post_fields = {'foo': 'bar'}     # Set POST fields here
 
 
 url_rfid = "http://rfid.com"
-url_gsm = "http://gsm.com"
+url_gsm = "http://gsm.co"
 url_odb2 = "http://odb2.com"
 
 def sendRFIDDataToServer(data):
