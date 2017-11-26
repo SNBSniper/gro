@@ -1,27 +1,18 @@
-from urllib.parse import urlencode
-from urllib.request import Request, urlopen
+# from urllib.parse import urlencode
+# from urllib.request import Request, urlopen
 import threading
+import json
+import requests
 import gsm
 import rfid
 import obd2
 import obd
 
 
+domain ="http://localhost"
+port = "8083"
 
-def worker(num):
-	if(num == 1): #GSM
-		print("GSM MODULE")
-		gsm.getGsmData()
-	if(num == 2): #RFID
-		print("RFID MODULE")
-		rfid.getRfidData()
-	if(num == 3): #ODB2
-		print("ODB2 MODULE")
-		odb2.getOdb2Data()
-
-	
-
-url = 'http://localhost:8079' # Set destination URL here
+url = domain+":"+port # Set destination URL here
 post_fields = {'foo': 'bar'}     # Set POST fields here
 
 
@@ -29,20 +20,31 @@ url_rfid = url
 url_gsm = url
 url_odb2 = url
 
-def sendRFIDDataToServer(data):
-	request = Request(url_rfid, urlencode(data).encode())
-	json = urlopen(request).read().decode()
-	print(json)	
 
-def sendGSMDataToServer(data):
-	request = Request(url_gsm, urlencode(data).encode())
-	json = urlopen(request).read().decode()
-	print(json)	
+def worker(num):
+	if(num == 1): #GSM
+		print("GSM MODULE")
+		data = gsm.getGsmData()
+		key =  "GSM"
+		postToServer(data, url_gsm, key)
+		
+	if(num == 2): #RFID
+		print("RFID MODULE")
+		data = rfid.getRfidData()
+		key = "RFID"
+		postToServer(data, url_rfid, key)
+	if(num == 3): #ODB2
+		print("ODB2 MODULE")
+		data = odb2.getOdb2Data()
+		postToServer(data, url_odb2)
+	
 
-def sendODB2DataToServer(data):
-	request = Request(url_odb2b, urlencode(data).encode())
-	json = urlopen(request).read().decode()
-	print(json)	
+
+
+def postToServer(data, url, key):
+	data_json = json.dumps(data)
+	payload = data
+	r = requests.post(url, json={key: payload})
 
 
 
@@ -54,4 +56,7 @@ for i in range(4):
     t.start()
 
 
-
+# threads = []
+# t =threading.Thread(target=worker, args=(1,))
+# threads.append(t)
+# t.start()
