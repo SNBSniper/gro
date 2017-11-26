@@ -26,22 +26,22 @@ def postToServer(data, url, key):
     r = requests.post(url, json={key: payload}) 
 
 def worker(num):
-	if(num == 1): #GSM
-	    print("GSM MODULE")
-	    data = gsm.getGsmData()
-	    key =  "GSM"
-	    postToServer(data, url_gsm, key)
-		
-	if(num == 2): #RFID
-	    print("RFID MODULE")
-	    data = rfid.getRfidData()
-	    key = "RFID"
-	    postToServer(data, url_rfid, key)
-	if(num == 3): #ODB2
-	    print("ODB2 MODULE")
-            data = obd2.getObd2Data()
-            key="OBD2"  
-            postToServer(data, url_obd2,key) 
+    if(num == 1): #GSM
+        print("GSM MODULE")
+        data = gsm.getGsmData()
+        key =  "GSM"
+        postToServer(data, url_gsm, key)
+        
+    if(num == 2): #RFID
+        print("RFID MODULE")
+        data = rfid.getRfidData()
+        key = "RFID"
+        postToServer(data, url_rfid, key)
+    if(num == 3): #ODB2
+        print("ODB2 MODULE")
+        data = obd2.getObd2Data()
+        key="OBD2"  
+        postToServer(data, url_obd2,key) 
 
 
 threads = []
