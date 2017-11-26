@@ -3,8 +3,8 @@ from urllib.request import Request, urlopen
 import threading
 import gsm
 import rfid
-import odb2
-
+import obd2
+import obd
 
 
 
