@@ -21,13 +21,13 @@ def worker(num):
 
 	
 
-url = 'https://httpbin.org/post' # Set destination URL here
+url = 'http://localhost:8079' # Set destination URL here
 post_fields = {'foo': 'bar'}     # Set POST fields here
 
 
-url_rfid = "http://rfid.com"
-url_gsm = "http://gsm.co"
-url_odb2 = "http://odb2.com"
+url_rfid = url
+url_gsm = url
+url_odb2 = url
 
 def sendRFIDDataToServer(data):
 	request = Request(url_rfid, urlencode(data).encode())
