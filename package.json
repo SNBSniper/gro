@@ -1,0 +1,24 @@
+{
+  "name": "gro",
+  "version": "1.0.0",
+  "description": "ODB2 GPS and NFC  Application",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "y"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-kinesis-writable": "^4.1.2",
+    "aws-sdk": "^2.167.0",
+    "express": "^4.16.2",
+    "gsp": "^0.5.4",
+    "request": "^2.83.0",
+    "requestify": "^0.2.5",
+    "serialport": "^6.0.4"
+  }
+}

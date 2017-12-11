@@ -2,22 +2,36 @@ var file = '/dev/ttyAMA0';
 
 var GPS = require('gps');
 var SerialPort = require('serialport');
-var request = require('request');
+var AWS = require('aws-sdk');
+AWS.config.region = 'us-east-1';
+var kinesis = new AWS.Kinesis;
+var recordData = [];
+// var request = require('request');
 
 
-var port = 8088;
-var url = "http://localhost:"+port;
+// // var port = 8088;
+// // var url = "http://localhost:"+port;
 function PostToServer(data){
-    request.post(
-       url,
-       { json: data  },
-            function (error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    console.log(body)
-                }
-            }
+    console.log(data);
+    var recordData = [];
+    var record = {
+        Data: JSON.stringify({
+            content: content,
+            time: new Date(),
+            carId: data.GPS.carId
+        }),
+        PartitionKey: 'partition-' + AWS.config.credentials.identityId
+      };
+    recordData.push(record); 
 
-    );
+    kinesis.putRecords({
+        Records: recordData,
+        StreamName: 'FiretruckStatusData'
+    }, function(err, data) {
+        if (err) {
+            console.error(err);
+        }
+    });
 }
 
 
@@ -30,7 +44,7 @@ var port = new SerialPort.SerialPort(file, {
 var gps = new GPS;
 
 gps.on('data', function(data) {
-    console.log("GPS:") ;
+    
     if(data.lat !== undefined){
         var data2= {};
         data.carId = "aaabb2dksk2";
@@ -45,9 +59,7 @@ gps.on('data', function(data) {
 });
 
 port.on('data', function(data) {
-    console.log("PORT");
       gps.update(data);
-
 });
 
 
