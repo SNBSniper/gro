@@ -9,27 +9,7 @@ var recordData = [];
 var request = require('request');
  
  
-var port = "9200"; 
-var ip = "192.168.0.21";
-var url = "http://"+ip+" :"+port; 
-function PostToServer(data) { 
-    request.post( 
-       url, 
-       { json: data  }, 
-            function (error, response, body) { 
-                if (!error && response.statusCode == 200) { 
-                    console.log(body) 
-                } 
-            } 
- 
-    ); 
-}
 
-
-
-
-// // var port = 8088;
-// // var url = "http://localhost:"+port;
 function PostToServer(data){
     console.log(data);
     var recordData = [];
@@ -51,6 +31,21 @@ function PostToServer(data){
             console.error(err);
         }
     });
+
+    var port = "9200"; 
+    var ip = "192.168.0.21";
+    var url = "http://"+ip+" :"+port; 
+
+    request.post( 
+       url, 
+       { json: data  }, 
+            function (error, response, body) { 
+                if (!error && response.statusCode == 200) { 
+                    console.log("Elastic OK SENT"); 
+                } 
+            } 
+ 
+    ); 
 }
 
 
