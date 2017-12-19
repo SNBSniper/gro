@@ -6,7 +6,26 @@ var AWS = require('aws-sdk');
 AWS.config.region = 'us-east-1';
 var kinesis = new AWS.Kinesis;
 var recordData = [];
-// var request = require('request');
+var request = require('request');
+ 
+ 
+var port = "9200"; 
+var ip = "192.168.0.21";
+var url = "http://"+ip+" :"+port; 
+function PostToServer(data) { 
+    request.post( 
+       url, 
+       { json: data  }, 
+            function (error, response, body) { 
+                if (!error && response.statusCode == 200) { 
+                    console.log(body) 
+                } 
+            } 
+ 
+    ); 
+}
+
+
 
 
 // // var port = 8088;
