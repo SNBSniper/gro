@@ -11,14 +11,6 @@ https://github.com/gilbitron/Cardash.git vendor/cardDash
 
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 
-sudo apt-get install nodejs -y
-
-npm install serialport
-npm install gps
-npm install express
-npm install requestify
-npm install request
-
 sudo pip3 install pyserial
 sudo pip3 install geopy
 
