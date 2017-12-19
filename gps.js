@@ -16,14 +16,14 @@ function PostToServer(data){
     var recordData = [];
     var record = {
         Data: JSON.stringify({
-            content: content,
+            content: data,
             time: new Date(),
             carId: data.GPS.carId
         }),
         PartitionKey: 'partition-' + AWS.config.credentials.identityId
       };
     recordData.push(record); 
-
+    console.log("data pushed");
     kinesis.putRecords({
         Records: recordData,
         StreamName: 'FiretruckStatusData'
